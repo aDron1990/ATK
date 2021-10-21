@@ -1,27 +1,19 @@
 #include "Window.h"
 namespace ATK
 {
-	Window::Window(HINSTANCE hInstance, LPCWSTR name, unsigned width, unsigned height) : _hInstance(hInstance)
+	extern LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	Window::Window(HINSTANCE hInstance, LPCWSTR name, unsigned width, unsigned height) : _hInstance(hInstance), _text(name), _x(CW_USEDEFAULT), _y(CW_USEDEFAULT), _width(width), _height(height)
 	{
+		EventHandler* e = EventHandler::getInstance();
+		e->addWindow(this);
 		WNDCLASS wc = {};
-		wc.lpfnWndProc = [](HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)->LRESULT
-		{
-			switch (uMsg)
-			{
-			case WM_DESTROY:
-				PostQuitMessage(0);
-			}
-			return DefWindowProc(hWnd, uMsg, wParam, lParam);
-		};
+		wc.lpfnWndProc = WndProc;
 		wc.lpszClassName = CLASS_NAME;
 		wc.hInstance = hInstance;
 
-		if (!RegisterClass(&wc))
-		{
-			MessageBox(NULL, L"WndClass redistration failed!", L"Error", MB_OK);
-		}
+		RegisterClass(&wc);
 
-		_hWnd = CreateWindow(CLASS_NAME, name, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, nullptr, nullptr, hInstance, NULL);
+		_hWnd = CreateWindow(CLASS_NAME, name, WS_OVERLAPPEDWINDOW, _x, _y, width, height, nullptr, nullptr, hInstance, NULL);
 
 		ShowWindow(_hWnd, SW_SHOW);
 	}
@@ -34,6 +26,17 @@ namespace ATK
 	HINSTANCE Window::getInstance()
 	{
 		return _hInstance;
+	}
+
+	void Window::handleCommand(WPARAM wParam, LPARAM lParam)
+	{
+		for (unsigned i = 0; i < _widgets.size(); i++)
+		{
+			if (_widgets[i]->getID() == wParam)
+			{
+				MessageBox(NULL, LPCWSTR(_widgets[i]->getID()), L"Кнопка нажата", MB_OK);
+			}
+		}
 	}
 
 	void Window::addWidget(Widget* widget)

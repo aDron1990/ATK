@@ -27,6 +27,9 @@
     <ClCompile Include="src\GUI\Widgets\Button\Button.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\Events\EventHandler\EventHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUI\Window.h">
@@ -35,10 +38,13 @@
     <ClInclude Include="src\GUI\Widgets\Widget.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\GUI\Widgets.h">
+    <ClInclude Include="src\GUI\widgets.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\GUI\Widgets\Button\Button.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Events\EventHandler\EventHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

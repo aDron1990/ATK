@@ -4,14 +4,16 @@ namespace ATK
 {
 	Widget::Widget(LPCWSTR type, LPCWSTR text, unsigned x, unsigned y, unsigned width, unsigned height) : _type(type), _text(text), _x(x), _y(y), _width(width), _height(height)
 	{
-
+		static unsigned _widgetsCount = 0;
+		_ID = _widgetsCount;
+		_widgetsCount++;
 	}
 
 	Widget::~Widget() {}
 
 	void Widget::attachToWindow(Window* window)
 	{
-		_hWnd = CreateWindow(_type, _text, WS_VISIBLE | WS_CHILD | WS_BORDER, _x, _y, _width, _height, (*window).getHWND(), nullptr, (*window).getInstance(), NULL);
+		_hWnd = CreateWindow(_type, _text, WS_VISIBLE | WS_CHILD | WS_BORDER, _x, _y, _width, _height, (*window).getHWND(), (HMENU)_ID, (*window).getInstance(), NULL);
 	}
 
 	void Widget::setText(const LPCWSTR text)
@@ -29,6 +31,16 @@ namespace ATK
 	{
 		_width = pos[0];
 		_height = pos[1];
+	}
+
+	unsigned Widget::getID()
+	{
+		return _ID;
+	}
+
+	HWND Widget::getHWnd()
+	{
+		return _hWnd;
 	}
 
 	LPCWSTR Widget::getText()

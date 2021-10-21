@@ -13,10 +13,12 @@ namespace ATK
 		friend class Window;
 
 	protected:
+		unsigned _ID;
 		unsigned _x;
 		unsigned _y;
 		unsigned _width;
 		unsigned _height;
+
 		HWND _hWnd;
 		LPCWSTR _type;
 		LPCWSTR _text;
@@ -32,6 +34,8 @@ namespace ATK
 		void setSize(const std::vector<unsigned> size);
 		void setPosition(const std::vector<unsigned> pos);
 
+		unsigned getID();
+		HWND getHWnd();
 		LPCWSTR getText();
 		std::vector<unsigned> getSize();
 		std::vector<unsigned> getPosition();
