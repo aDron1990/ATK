@@ -54,7 +54,10 @@ namespace ATK
 
 	LPCWSTR Widget::getText()
 	{
-		LPCWSTR text(_text);
+		int len = GetWindowTextLength(_hWnd) + 1;
+		TCHAR* text = new TCHAR[len];
+		len = GetWindowText(_hWnd, text, len);
+		_text = text;
 		return text;
 	}
 
@@ -68,18 +71,5 @@ namespace ATK
 	{
 		std::vector<unsigned> position{ _x, _y };
 		return position;
-	}
-
-	void Widget::setOnClick(void (*onClick)(ATK::Widget* widget))
-	{
-		_onClickP = onClick;
-	}
-
-	void Widget::OnClick()
-	{
-		if (_onClickP)
-		{
-			_onClickP(this);
-		}
 	}
 }

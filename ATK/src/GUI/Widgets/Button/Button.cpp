@@ -10,4 +10,17 @@ namespace ATK
 	{
 
 	}
+
+	void Button::setOnClick(void (*onClick)(ATK::Widget* widget))
+	{
+		_onClickP = onClick;
+	}
+
+	void Button::OnClick()
+	{
+		if (_onClickP)
+		{
+			_onClickP(this);
+		}
+	}
 }

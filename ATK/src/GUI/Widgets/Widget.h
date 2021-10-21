@@ -21,12 +21,9 @@ namespace ATK
 		LPCWSTR _type;
 		LPCWSTR _text;
 
-		
 		void updateSizePos();
 
 		Widget(LPCWSTR type, LPCWSTR text, unsigned x, unsigned y, unsigned width, unsigned height);
-
-		void (*_onClickP)(ATK::Widget* widget) = NULL;
 
 	public:
 		
@@ -42,10 +39,6 @@ namespace ATK
 		LPCWSTR getText();
 		std::vector<unsigned> getSize();
 		std::vector<unsigned> getPosition();
-
-		
-		void setOnClick(void (*onClick)(ATK::Widget* widget));
-		void OnClick();
 	};
 }
 

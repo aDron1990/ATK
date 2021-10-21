@@ -30,6 +30,9 @@
     <ClCompile Include="src\Events\EventHandler\EventHandler.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUI\Widgets\Edit\Edit.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GUI\Window.h">
@@ -45,6 +48,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\Events\EventHandler\EventHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GUI\Widgets\Edit\Edit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

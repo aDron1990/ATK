@@ -44,13 +44,42 @@ namespace ATK
 			}
 			break;
 		case WM_COMMAND:
+			switch (HIWORD(wParam))
+			{
+			case EN_CHANGE:
+				for (int i = 0; i < e->_windows.size(); i++)
+				{
+					for (int j = 0; j < e->_windows[i]->_widgets.size(); j++)
+					{
+						if (LOWORD(wParam) == e->_windows[i]->_widgets[j]->getID())
+						{
+							(dynamic_cast<Edit*>(e->_windows[i]->_widgets[j]))->OnChange();
+						}
+
+					}
+				}
+				break;
+			case EN_MAXTEXT:
+				for (int i = 0; i < e->_windows.size(); i++)
+				{
+					for (int j = 0; j < e->_windows[i]->_widgets.size(); j++)
+					{
+						if (LOWORD(wParam) == e->_windows[i]->_widgets[j]->getID())
+						{
+							(dynamic_cast<Edit*>(e->_windows[i]->_widgets[j]))->OnChange();
+						}
+
+					}
+				}
+				break;
+			}
 			for (int i = 0; i < e->_windows.size(); i++)
 			{
 				for (int j = 0; j < e->_windows[i]->_widgets.size(); j++)
 				{
 					if (wParam == e->_windows[i]->_widgets[j]->getID())
 					{
-						e->_windows[i]->_widgets[j]->OnClick();
+						(dynamic_cast<Button*>(e->_windows[i]->_widgets[j]))->OnClick();
 					}
 						
 				}

@@ -4,6 +4,8 @@
 #include "../../GUI/Widgets/Widget.h"
 
 #include <Windows.h>
+#include "../../GUI/Widgets.h"
+
 #include <vector>
 
 namespace ATK
