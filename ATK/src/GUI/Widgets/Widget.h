@@ -1,18 +1,16 @@
 #pragma once
 
-#include "../Window.h"
-
 #include <Windows.h>
 #include <vector>
 
 namespace ATK
 {
-
+	class Window;
 	class Widget
 	{
+	protected:
 		friend class Window;
 
-	protected:
 		unsigned _ID;
 		unsigned _x;
 		unsigned _y;
@@ -23,22 +21,31 @@ namespace ATK
 		LPCWSTR _type;
 		LPCWSTR _text;
 
-		void attachToWindow(Window* window);
+		
+		void updateSizePos();
 
 		Widget(LPCWSTR type, LPCWSTR text, unsigned x, unsigned y, unsigned width, unsigned height);
 
+		void (*_onClickP)(ATK::Widget* widget) = NULL;
+
 	public:
+		
 		virtual ~Widget();
 
 		void setText(const LPCWSTR text);
 		void setSize(const std::vector<unsigned> size);
 		void setPosition(const std::vector<unsigned> pos);
+		void setPosition(unsigned x, unsigned y);
 
 		unsigned getID();
 		HWND getHWnd();
 		LPCWSTR getText();
 		std::vector<unsigned> getSize();
 		std::vector<unsigned> getPosition();
+
+		
+		void setOnClick(void (*onClick)(ATK::Widget* widget));
+		void OnClick();
 	};
 }
 

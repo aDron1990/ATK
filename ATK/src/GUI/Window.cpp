@@ -2,7 +2,8 @@
 namespace ATK
 {
 	extern LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	Window::Window(HINSTANCE hInstance, LPCWSTR name, unsigned width, unsigned height) : _hInstance(hInstance), _text(name), _x(CW_USEDEFAULT), _y(CW_USEDEFAULT), _width(width), _height(height)
+
+	Window::Window(HINSTANCE hInstance, LPCWSTR name, unsigned width, unsigned height) : Widget(L"ATKWindow", name, CW_USEDEFAULT, CW_USEDEFAULT, width, height), _hInstance(hInstance)
 	{
 		EventHandler* e = EventHandler::getInstance();
 		e->addWindow(this);
@@ -13,14 +14,14 @@ namespace ATK
 
 		RegisterClass(&wc);
 
-		_hWnd = CreateWindow(CLASS_NAME, name, WS_OVERLAPPEDWINDOW, _x, _y, width, height, nullptr, nullptr, hInstance, NULL);
+		_hWnd = CreateWindow(CLASS_NAME, _text, WS_OVERLAPPEDWINDOW, _x, _y, _width, _height, nullptr, nullptr, _hInstance, NULL);
 
 		ShowWindow(_hWnd, SW_SHOW);
 	}
 
-	HWND Window::getHWND()
+	Window::~Window()
 	{
-		return _hWnd;
+
 	}
 
 	HINSTANCE Window::getInstance()
@@ -28,20 +29,17 @@ namespace ATK
 		return _hInstance;
 	}
 
-	void Window::handleCommand(WPARAM wParam, LPARAM lParam)
-	{
-		for (unsigned i = 0; i < _widgets.size(); i++)
-		{
-			if (_widgets[i]->getID() == wParam)
-			{
-				MessageBox(NULL, LPCWSTR(_widgets[i]->getID()), L"Кнопка нажата", MB_OK);
-			}
-		}
-	}
-
 	void Window::addWidget(Widget* widget)
 	{
 		_widgets.push_back(widget);
-		(*widget).attachToWindow(this);
+		widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD | WS_BORDER, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
+	}
+
+	void Window::reDraw()
+	{
+		PAINTSTRUCT ps;
+		HDC hDc = BeginPaint(_hWnd, &ps);
+		FillRect(hDc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+		EndPaint(_hWnd, &ps);
 	}
 }

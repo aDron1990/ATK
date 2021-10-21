@@ -11,9 +11,9 @@ namespace ATK
 
 	Widget::~Widget() {}
 
-	void Widget::attachToWindow(Window* window)
+	void Widget::updateSizePos()
 	{
-		_hWnd = CreateWindow(_type, _text, WS_VISIBLE | WS_CHILD | WS_BORDER, _x, _y, _width, _height, (*window).getHWND(), (HMENU)_ID, (*window).getInstance(), NULL);
+		SetWindowPos(_hWnd, NULL, _x, _y, _width, _height, NULL);
 	}
 
 	void Widget::setText(const LPCWSTR text)
@@ -23,14 +23,23 @@ namespace ATK
 
 	void Widget::setSize(const std::vector<unsigned> size)
 	{
-		_x = size[0];
-		_y = size[1];
+		_width = size[0];
+		_height = size[1];
+		updateSizePos();
 	}
 
 	void Widget::setPosition(const std::vector<unsigned> pos)
 	{
-		_width = pos[0];
-		_height = pos[1];
+		_x = pos[0];
+		_y = pos[1];
+		updateSizePos();
+	}
+
+	void Widget::setPosition(unsigned x, unsigned y)
+	{
+		_x = x;
+		_y = y;
+		updateSizePos();
 	}
 
 	unsigned Widget::getID()
@@ -59,5 +68,18 @@ namespace ATK
 	{
 		std::vector<unsigned> position{ _x, _y };
 		return position;
+	}
+
+	void Widget::setOnClick(void (*onClick)(ATK::Widget* widget))
+	{
+		_onClickP = onClick;
+	}
+
+	void Widget::OnClick()
+	{
+		if (_onClickP)
+		{
+			_onClickP(this);
+		}
 	}
 }

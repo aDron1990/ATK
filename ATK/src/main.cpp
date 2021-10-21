@@ -1,8 +1,11 @@
+#include "Events/EventHandler/EventHandler.h"
 #include "GUI/Window.h"
 #include "GUI/widgets.h"
 
 #include <Windows.h>
 #include <iostream>
+
+void b1OnClick(ATK::Widget* widget);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
@@ -12,14 +15,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	ATK::Button b2(L"кнопка 2", 100, 0, 100, 30);
 
 	window.addWidget(&b1);
-	window.addWidget(&b2);
 
-	MSG msg = { };
-	while (GetMessage(&msg, NULL, 0, 0) > 0)
+	b1.setOnClick(b1OnClick);
+	ATK::EventHandler* event = ATK::EventHandler::getInstance();
+	while (event->getMessage())
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		event->pollEvents();
 	}
 
 	return EXIT_SUCCESS;
+}
+
+void b1OnClick(ATK::Widget* widget)
+{
+	widget->setPosition((widget->getPosition())[0] + 50, (widget->getPosition())[1] + 50);
 }

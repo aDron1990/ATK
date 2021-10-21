@@ -15,9 +15,15 @@ namespace ATK
 		_windows.push_back(window);
 	}
 
+	bool EventHandler::getMessage()
+	{
+		return GetMessage(&msg, NULL, 0, 0) > 0;
+	}
+
 	void EventHandler::pollEvents()
 	{
-
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
 	}
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -28,17 +34,23 @@ namespace ATK
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
+		case WM_PAINT:
+			for (int i = 0; i < e->_windows.size(); i++)
+			{
+				if (wParam == e->_windows[i]->getID())
+				{
+					e->_windows[i]->reDraw();
+				}
+			}
+			break;
 		case WM_COMMAND:
-//			MessageBox(NULL, L"1", L"Нажата кнопка", MB_OK);
 			for (int i = 0; i < e->_windows.size(); i++)
 			{
 				for (int j = 0; j < e->_windows[i]->_widgets.size(); j++)
 				{
 					if (wParam == e->_windows[i]->_widgets[j]->getID())
 					{
-						wchar_t buffer[256];
-						wsprintfW(buffer, L"%d", e->_windows[i]->_widgets[j]->getID());
-						MessageBox(NULL, buffer, L"Нажата кнопка", MB_OK);
+						e->_windows[i]->_widgets[j]->OnClick();
 					}
 						
 				}
