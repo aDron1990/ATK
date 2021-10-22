@@ -53,5 +53,8 @@
     <ClInclude Include="src\GUI\Widgets\Edit\Edit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\strTools.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

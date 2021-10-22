@@ -19,6 +19,7 @@ namespace ATK
 	void Widget::setText(const LPCWSTR text)
 	{
 		_text = text;
+		SendMessage(_hWnd, WM_SETTEXT, 0, (LPARAM)_text);
 	}
 
 	void Widget::setSize(const std::vector<unsigned> size)

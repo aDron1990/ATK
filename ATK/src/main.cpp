@@ -1,25 +1,36 @@
 #include "Events/EventHandler/EventHandler.h"
 #include "GUI/Window.h"
 #include "GUI/widgets.h"
+#include "strTools.h"
 
 #include <Windows.h>
 #include <iostream>
 
-void b1OnClick(ATK::Widget* widget);
+void OnClick(ATK::Widget* widget);
 
 ATK::Edit* e1;
+ATK::Edit* e2;
+ATK::Edit* e3;
+
+ATK::Button* equal;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
-	ATK::Window window(hInstance, L"Window", 800, 600);
+	ATK::Window window(hInstance, L"Window", 400, 400);
 	
-	ATK::Button b1(L"кнопка 1", 0, 0, 100, 30);
-	e1 = new ATK::Edit(L"", 0, 30, 100, 30);
+	e1 = new ATK::Edit(nullptr, 50, 100, 125, 30);
+	e2 = new ATK::Edit(nullptr, 225, 100, 125, 30);
+	e3 = new ATK::Edit(nullptr, 100, 220, 200, 30);
 
-	window.addWidget(&b1);
+	equal = new ATK::Button(L"=", 50, 160, 300, 30);
+
 	window.addWidget(e1);
+	window.addWidget(e2);
+	window.addWidget(e3);
+	window.addWidget(equal);
 
-	b1.setOnClick(b1OnClick);
+	equal->setOnClick(OnClick);
+
 	ATK::EventHandler* event = ATK::EventHandler::getInstance();
 	while (event->getMessage())
 	{
@@ -31,7 +42,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	return EXIT_SUCCESS;
 }
 
-void b1OnClick(ATK::Widget* widget)
+void OnClick(ATK::Widget* widget)
 {
-	MessageBox(NULL, e1->getText(), L"2", MB_OK);
+	e3->setText(IntToStr(StrToInt(e1->getText()) + StrToInt(e2->getText())));
 }
