@@ -26,6 +26,8 @@ namespace ATK
 		MSG msg = { };
 
 	public:
+		~EventHandler();
+
 		EventHandler(EventHandler& other) = delete;
 		static EventHandler* getInstance();
 		

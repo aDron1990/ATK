@@ -10,6 +10,14 @@ namespace ATK
 		
 	}
 
+	EventHandler::~EventHandler()
+	{
+		for (int i = 0; i < _windows.size(); i++)
+		{
+			delete _windows[i];
+		}
+	}
+
 	void EventHandler::addWindow(Window* window)
 	{
 		_windows.push_back(window);

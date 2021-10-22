@@ -21,7 +21,10 @@ namespace ATK
 
 	Window::~Window()
 	{
-
+		for (int i = 0; i < _widgets.size(); i++)
+		{
+			delete _widgets[i];
+		}
 	}
 
 	HINSTANCE Window::getInstance()

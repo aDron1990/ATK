@@ -14,9 +14,11 @@ ATK::Edit* e3;
 
 ATK::Button* equal;
 
+ATK::Window* window;
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
-	ATK::Window window(hInstance, L"Window", 400, 400);
+	window = new ATK::Window(hInstance, L"Window", 400, 400);
 	
 	e1 = new ATK::Edit(nullptr, 50, 100, 125, 30);
 	e2 = new ATK::Edit(nullptr, 225, 100, 125, 30);
@@ -24,10 +26,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 
 	equal = new ATK::Button(L"=", 50, 160, 300, 30);
 
-	window.addWidget(e1);
-	window.addWidget(e2);
-	window.addWidget(e3);
-	window.addWidget(equal);
+	window->addWidget(e1);
+	window->addWidget(e2);
+	window->addWidget(e3);
+	window->addWidget(equal);
 
 	equal->setOnClick(OnClick);
 
@@ -37,10 +39,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 		event->pollEvents();
 	}
 
-	delete e1;
-	delete e2;
-	delete e3;
-	delete equal;
 	delete event;
 
 	return EXIT_SUCCESS;
