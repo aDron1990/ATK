@@ -35,6 +35,11 @@ namespace ATK
 	void Window::addWidget(Widget* widget)
 	{
 		_widgets.push_back(widget);
+		if (dynamic_cast<Label*>(widget))
+		{
+			widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
+			return;
+		}
 		widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD | WS_BORDER, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
 	}
 

@@ -4,3 +4,4 @@
 
 #include "Widgets/Button/Button.h"
 #include "Widgets/Edit/Edit.h"
+#include "Widgets/Label/Label.h"
