@@ -14,7 +14,7 @@ namespace ATK
 
 		RegisterClass(&wc);
 
-		_hWnd = CreateWindow(CLASS_NAME, _text, WS_OVERLAPPEDWINDOW, _x, _y, _width, _height, nullptr, nullptr, _hInstance, NULL);
+		_hWnd = CreateWindow(CLASS_NAME, _text, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, _x, _y, _width, _height, nullptr, nullptr, _hInstance, NULL);
 
 		ShowWindow(_hWnd, SW_SHOW);
 	}

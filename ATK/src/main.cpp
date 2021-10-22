@@ -38,7 +38,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 	}
 
 	delete e1;
+	delete e2;
+	delete e3;
+	delete equal;
 	delete event;
+
 	return EXIT_SUCCESS;
 }
 
