@@ -1,40 +1,27 @@
-#include "Events/EventHandler/EventHandler.h"
-#include "GUI/Window.h"
-#include "GUI/widgets.h"
-#include "strTools.h"
-
 #include <Windows.h>
-#include <iostream>
+#include "ATK/ATK.h"
 
-ATK::Window* window;
-ATK::Button* bt_plus;
-ATK::Button* bt_minus;
-ATK::Button* bt_mult;
-ATK::Button* bt_div;
-ATK::Edit* e1;
-ATK::Edit* e2;
-ATK::Edit* e3;
+ATK::Button* b;
+
+void gfeqwertf(ATK::Widget* widget)
+{
+	widget->setPosition(widget->getPosition()[0] + 10, widget->getPosition()[1] + 10);
+}
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
 {
-	window = new ATK::Window(hInstance, L"Калькулятор", 400, 550);
+	ATK::Window* window = new ATK::Window(hInstance, L"win", 800, 600);
+	ATK::EventHandler* e = ATK::EventHandler::getInstance();
 	
-	e1 = new ATK::Edit(nullptr, 50, 100, 125, 20);
-	e2 = new ATK::Edit(nullptr, 225, 100, 125, 50);
-	e3 = new ATK::Edit(nullptr, 100, 220, 200, 50);
-	bt_plus = new ATK::Button(L"=", 50, 160, 300, 30);
 
-	window->addWidget(e1);
-	window->addWidget(e2);
-	window->addWidget(e3);
 
-	ATK::EventHandler* event = ATK::EventHandler::getInstance();
-	while (event->getMessage())
+	b = new ATK::Button(L"Кнопка", 0, 0, 100, 30);
+	b->setOnClick(gfeqwertf);
+	window->addWidget(b);
+
+	while (e->getMessage())
 	{
-		event->pollEvents();
+		e->pollEvents();
 	}
-
-	delete event;
-
 	return EXIT_SUCCESS;
 }
