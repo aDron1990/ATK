@@ -14,7 +14,7 @@ namespace ATK
 	{
 		for (int i = 0; i < _windows.size(); i++)
 		{
-			delete _windows[i];
+			delete &_windows[i];
 		}
 	}
 
@@ -39,8 +39,31 @@ namespace ATK
 		EventHandler *e = EventHandler::getInstance();
 		switch (uMsg)
 		{
+		case WM_SYSCOMMAND:
+			switch (wParam)
+			{
+			case SC_CLOSE:
+				if (hWnd == e->_windows[0]->getHWnd()) PostQuitMessage(0);
+				else
+				{
+					if (hWnd == e->_windows[0]->getHWnd()) PostQuitMessage(0);
+					else
+					{
+						for (unsigned i = 1; i < e->_windows.size(); i++)
+						{
+							if (hWnd == e->_windows[i]->getHWnd())
+							{
+								e->_windows[i]->switchState();
+								return false;
+							}
+						}
+					}
+				}
+				break;
+			}
+			break;
 		case WM_DESTROY:
-			PostQuitMessage(0);
+//			PostQuitMessage(0);
 			break;
 		case WM_PAINT:
 			for (int i = 0; i < e->_windows.size(); i++)
@@ -95,6 +118,11 @@ namespace ATK
 		}
 
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+
+	std::vector<Window*> EventHandler::getWindowList()
+	{
+		return _windows;
 	}
 
 	EventHandler* EventHandler::getInstance()

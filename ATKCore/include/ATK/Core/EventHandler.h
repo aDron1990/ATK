@@ -13,6 +13,7 @@ namespace ATK
 		static EventHandler* _instance;
 		friend class Window;
 		friend class Widget;
+		friend class Application;
 
 		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -29,6 +30,7 @@ namespace ATK
 		EventHandler(EventHandler& other) = delete;
 		static EventHandler* getInstance();
 		
+		std::vector<Window*> getWindowList();
 		bool getMessage();
 		void pollEvents();
 	};

@@ -33,6 +33,30 @@ namespace ATK
 		return _hInstance;
 	}
 
+	void Window::switchState()
+	{
+		if (_state == SW_SHOW)
+		{
+			_state = SW_HIDE;
+		}
+		else
+		{
+			_state = SW_SHOW;
+		}
+		ShowWindow(_hWnd, _state);
+	}
+
+	void Window::setState(unsigned state)
+	{
+		_state = state;
+		ShowWindow(_hWnd, _state);
+	}
+
+	unsigned Window::getState()
+	{
+		return _state;
+	}
+
 	void Window::addWidget(Widget* widget)
 	{
 		_widgets.push_back(widget);

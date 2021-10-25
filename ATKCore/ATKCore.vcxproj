@@ -91,6 +91,7 @@
     <ClInclude Include="include\ATK\atkTools.h" />
     <ClInclude Include="include\ATK\Core\Application.h" />
     <ClInclude Include="include\ATK\ATK.h" />
+    <ClInclude Include="include\ATK\Core\EntryPoint.h" />
     <ClInclude Include="include\ATK\Core\EventHandler.h" />
     <ClInclude Include="include\ATK\Core\PluginInfo.h" />
     <ClInclude Include="include\ATK\GUI\widgets.h" />
@@ -101,8 +102,10 @@
     <ClInclude Include="include\ATK\GUI\Window.h" />
     <ClInclude Include="include\ATK\framework.h" />
     <ClInclude Include="include\ATK\pch.h" />
+    <ClInclude Include="include\ATK\Plugin\Plugin.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Plugin.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\Button.cpp" />

@@ -1,28 +1,57 @@
 #include <Windows.h>
 #include "ATK/ATK.h"
 
-ATK::Button* b;
+static std::vector<std::pair<ATK::Widget*, ATK::Window*>*> x;
+void Onclick(ATK::Widget* widget);
 
-void gfeqwertf(ATK::Widget* widget)
+class TestApp : public ATK::Application
 {
-	widget->setPosition(widget->getPosition()[0] + 10, widget->getPosition()[1] + 10);
+	ATK::Window* MainWindow;
+	ATK::Window* wnd1;
+	ATK::Window* wnd2;
+
+public:
+
+	TestApp(HINSTANCE hInstance) : Application(hInstance)
+	{
+		MainWindow = new ATK::Window(getInstance(), L"MainWindow", 300, 300);
+		wnd1 = new ATK::Window(getInstance(), L"wnd1", 100, 100);
+		wnd2 = new ATK::Window(getInstance(), L"wnd2", 100, 100);
+	}
+
+	void run()
+	{	
+		for (int i = 0; i < _windows.size() - 1; i++)
+		{
+			ATK::Button* btn = new ATK::Button(IntToStr(i), 0, 0 + 30 * i, 100, 30);
+			x.push_back(new std::pair<ATK::Widget*, ATK::Window*>(btn, _windows[i + 1]));
+			MainWindow->addWidget(btn);
+			btn->setOnClick(Onclick);
+		}
+		while (e->getMessage())
+		{
+			e->pollEvents();
+		}
+	}
+
+	~TestApp()
+	{
+
+	}
+};
+
+void Onclick(ATK::Widget* widget)
+{
+	for (int i = 0; i < x.size(); i++)
+	{
+		if (x[i]->first->getID() == widget->getID())
+		{
+			x[i]->second->switchState();
+		}
+	}
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow)
+ATK::Application* ATK::GetApp(HINSTANCE hInstance)
 {
-	ATK::Window* window = new ATK::Window(hInstance, L"win", 800, 600);
-	ATK::EventHandler* e = ATK::EventHandler::getInstance();
-
-	HMODULE hM = LoadLibrary(L"PluginManager");
-	void(*init)() = (void(*)())GetProcAddress(hM, "Init");
-
-	b = new ATK::Button(L"Êíîïêà", 0, 0, 100, 30);
-	b->setOnClick(gfeqwertf);
-	window->addWidget(b);
-
-	while (e->getMessage())
-	{
-		e->pollEvents();
-	}
-	return EXIT_SUCCESS;
+	return new TestApp(hInstance);
 }

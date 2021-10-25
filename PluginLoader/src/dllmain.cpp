@@ -20,7 +20,9 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
-void Init()
+std::vector<ATK::PluginInfo> LoadPlugins()
 {
     loadPluginsDir();
+    std::vector<ATK::PluginInfo> r;
+    return r;
 }

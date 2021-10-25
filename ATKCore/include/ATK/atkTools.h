@@ -9,8 +9,10 @@ int StrToInt(const wchar_t* value)
 
 const wchar_t* IntToStr(int value)
 {
-	wchar_t result[1024];
-	wsprintf(result, L"%d", value);
+	std::wostringstream wss;
+	wss << value;
+	std::wstring ws = wss.str();
+	wchar_t* result = _wcsdup(ws.c_str());
 	return result;
 }
 

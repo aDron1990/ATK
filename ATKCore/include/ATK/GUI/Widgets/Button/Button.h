@@ -9,7 +9,7 @@ namespace ATK
 
 	class Button : public Widget
 	{
-		void (*_onClickP)(ATK::Widget* widget) = NULL;
+		void (*_onClickP)(ATK::Widget*) = NULL;
 	public:
 		Button(LPCWSTR text, unsigned x, unsigned y, unsigned width, unsigned height);
 		~Button();
