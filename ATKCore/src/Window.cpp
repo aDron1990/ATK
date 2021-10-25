@@ -7,7 +7,7 @@ namespace ATK
 	Window::Window(HINSTANCE hInstance, LPCWSTR name, unsigned width, unsigned height) : Widget(L"ATKWindow", name, CW_USEDEFAULT, CW_USEDEFAULT, width, height), _hInstance(hInstance)
 	{
 		EventHandler* e = EventHandler::getInstance();
-		e->addWindow(this);
+		
 		WNDCLASS wc = {};
 		wc.lpfnWndProc = WndProc;
 		wc.lpszClassName = CLASS_NAME;
@@ -16,6 +16,7 @@ namespace ATK
 		RegisterClass(&wc);
 
 		_hWnd = CreateWindow(CLASS_NAME, _text, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, _x, _y, _width, _height, nullptr, nullptr, _hInstance, NULL);
+		e->_windows.push_back(this);
 
 		ShowWindow(_hWnd, SW_SHOW);
 	}

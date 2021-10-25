@@ -6,7 +6,6 @@ namespace ATK
 	{
 		_hInstance = NULL;
 		e = EventHandler::getInstance();
-		_windows = e->getWindowList();
 	}
 
 	Application::~Application()

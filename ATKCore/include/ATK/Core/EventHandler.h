@@ -17,12 +17,11 @@ namespace ATK
 
 		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-		std::vector<Window*> _windows;
-		void addWindow(Window* window);
-		void update();
+//		void update();
 
 		EventHandler();
 		MSG msg = { };
+		bool _appState = 1;
 
 	public:
 		~EventHandler();
@@ -30,8 +29,8 @@ namespace ATK
 		EventHandler(EventHandler& other) = delete;
 		static EventHandler* getInstance();
 		
-		std::vector<Window*> getWindowList();
-		bool getMessage();
+		std::vector<Window*> _windows;
+		BOOL getMessage();
 		void pollEvents();
 	};
 

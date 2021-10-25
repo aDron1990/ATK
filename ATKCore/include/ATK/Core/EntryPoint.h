@@ -9,7 +9,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 {
 	
 	auto app = ATK::GetApp(hInstance);
+//	delete app;
 	app->run();
-	delete app;
 	return EXIT_SUCCESS;
 }

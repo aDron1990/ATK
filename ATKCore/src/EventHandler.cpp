@@ -18,14 +18,13 @@ namespace ATK
 		}
 	}
 
-	void EventHandler::addWindow(Window* window)
+	BOOL EventHandler::getMessage()
 	{
-		_windows.push_back(window);
-	}
-
-	bool EventHandler::getMessage()
-	{
-		return GetMessage(&msg, NULL, 0, 0) > 0;
+		if (_appState)
+		{
+			GetMessage(&msg, NULL, NULL, NULL);
+		}
+		return _appState;
 	}
 
 	void EventHandler::pollEvents()
@@ -43,27 +42,23 @@ namespace ATK
 			switch (wParam)
 			{
 			case SC_CLOSE:
-				if (hWnd == e->_windows[0]->getHWnd()) PostQuitMessage(0);
+				if (hWnd == e->_windows[0]->getHWnd())
+				{
+					e->_appState = 0;
+				}
 				else
 				{
-					if (hWnd == e->_windows[0]->getHWnd()) PostQuitMessage(0);
-					else
+					for (unsigned i = 1; i < e->_windows.size(); i++)
 					{
-						for (unsigned i = 1; i < e->_windows.size(); i++)
+						if (hWnd == e->_windows[i]->getHWnd())
 						{
-							if (hWnd == e->_windows[i]->getHWnd())
-							{
-								e->_windows[i]->switchState();
-								return false;
-							}
+							e->_windows[i]->switchState();
+							return false;
 						}
 					}
 				}
 				break;
 			}
-			break;
-		case WM_DESTROY:
-//			PostQuitMessage(0);
 			break;
 		case WM_PAINT:
 			for (int i = 0; i < e->_windows.size(); i++)
@@ -118,11 +113,6 @@ namespace ATK
 		}
 
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
-	}
-
-	std::vector<Window*> EventHandler::getWindowList()
-	{
-		return _windows;
 	}
 
 	EventHandler* EventHandler::getInstance()

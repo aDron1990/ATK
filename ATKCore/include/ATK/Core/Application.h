@@ -13,7 +13,6 @@ namespace ATK
 
 		HINSTANCE _hInstance;
 		EventHandler* e;
-		std::vector<Window*> _windows;
 
 	public:
 

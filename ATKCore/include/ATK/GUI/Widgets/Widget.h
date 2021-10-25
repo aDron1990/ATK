@@ -26,6 +26,7 @@ namespace ATK
 
 	public:
 		
+//		HWND _hWnd;
 		virtual ~Widget();
 
 		void setText(const LPCWSTR text);

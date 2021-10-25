@@ -9,6 +9,7 @@ class TestApp : public ATK::Application
 	ATK::Window* MainWindow;
 	ATK::Window* wnd1;
 	ATK::Window* wnd2;
+	ATK::Window* wnd3;
 
 public:
 
@@ -17,17 +18,19 @@ public:
 		MainWindow = new ATK::Window(getInstance(), L"MainWindow", 300, 300);
 		wnd1 = new ATK::Window(getInstance(), L"wnd1", 100, 100);
 		wnd2 = new ATK::Window(getInstance(), L"wnd2", 100, 100);
+		wnd3 = new ATK::Window(getInstance(), L"wnd3", 100, 100);
 	}
 
 	void run()
 	{	
-		for (int i = 0; i < _windows.size() - 1; i++)
+		for (int i = 1; i < e->_windows.size(); i++)
 		{
 			ATK::Button* btn = new ATK::Button(IntToStr(i), 0, 0 + 30 * i, 100, 30);
-			x.push_back(new std::pair<ATK::Widget*, ATK::Window*>(btn, _windows[i + 1]));
+			x.push_back(new std::pair<ATK::Widget*, ATK::Window*>(btn, e->_windows[i]));
 			MainWindow->addWidget(btn);
 			btn->setOnClick(Onclick);
 		}
+		
 		while (e->getMessage())
 		{
 			e->pollEvents();
