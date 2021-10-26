@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef MAINAPP
+
 #include "../pch.h"
 #include "Application.h"
 
@@ -9,7 +11,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
 {
 	
 	auto app = ATK::GetApp(hInstance);
-//	delete app;
 	app->run();
 	return EXIT_SUCCESS;
 }
+
+#endif

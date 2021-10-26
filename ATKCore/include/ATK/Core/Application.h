@@ -7,12 +7,15 @@
 
 namespace ATK
 {
+	class Plugin;
 	class Application
 	{
+		friend class Plugin;
 	protected:
 
 		HINSTANCE _hInstance;
 		EventHandler* e;
+		std::vector<Plugin*> _plugins;
 
 	public:
 

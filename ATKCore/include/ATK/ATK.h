@@ -6,6 +6,8 @@
 #include "GUI/Window.h"
 #include "GUI/Widgets.h"
 
+#include "Plugin/Plugin.h"
+
 #include "atkTools.h"
 
 #define LOAD "LoadPlugins"
