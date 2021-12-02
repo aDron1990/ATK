@@ -19,6 +19,7 @@ namespace ATK
 		e->_windows.push_back(this);
 
 		ShowWindow(_hWnd, SW_SHOW);
+		if (_ID) switchState();
 	}
 
 	Window::~Window()
