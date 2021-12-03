@@ -10,6 +10,7 @@ class Test : public ATK::Plugin
 {
     ATK::Window* wnd;
     ATK::Button* bt;
+    ATK::ComboBox* cb;
 
 public:
 
@@ -19,8 +20,14 @@ public:
         addWindow(wnd);
 
         bt = new ATK::Button(L"Test", 0, 0, 50, 50);
+        cb = new ATK::ComboBox(NULL, 50, 0, 100, 100);
+
         bt->setOnClick(OnClick);
         wnd->addWidget(bt);
+        wnd->addWidget(cb);
+
+        cb->addString(L"1");
+        cb->addString(L"2");
     }
     ~Test()
     {

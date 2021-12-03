@@ -56,6 +56,7 @@ void setAlarm(int hour, int minute)
             if (MessageBox(NULL, L"", L"Будильник", MB_OK)) PlaySound(NULL, NULL, SND_NODEFAULT);
             break;
         }
+        Sleep(5000);
     }
 }
 
