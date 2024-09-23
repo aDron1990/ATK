@@ -6,8 +6,10 @@
 #include "GUI/Window.h"
 #include "GUI/Widgets.h"
 
+#include "Plugin/Plugin.h"
+
 #include "atkTools.h"
 
 #define LOAD "LoadPlugins"
 
-typedef std::vector<ATK::PluginInfo>(*LoadPluginsFuncP)();
+typedef void(*LoadPluginsFuncP)(ATK::Application*);

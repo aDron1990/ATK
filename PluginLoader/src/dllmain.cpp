@@ -10,7 +10,6 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
-        MessageBox(NULL, L"TestPlugin PROCESS_ATTACH", L"Plugin message", MB_OK);
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
@@ -20,9 +19,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
-std::vector<ATK::PluginInfo> LoadPlugins()
+void LoadPlugins(ATK::Application* app)
 {
-    loadPluginsDir();
-    std::vector<ATK::PluginInfo> r;
-    return r;
+    loadPluginsDir(app);
 }
