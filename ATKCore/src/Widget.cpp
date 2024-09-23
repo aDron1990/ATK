@@ -2,11 +2,11 @@
 
 namespace ATK
 {
+	GetIdProc Widget::GenerateId = NULL;
+
 	Widget::Widget(LPCWSTR type, LPCWSTR text, unsigned x, unsigned y, unsigned width, unsigned height) : _type(type), _text(text), _x(x), _y(y), _width(width), _height(height)
 	{
-		static unsigned _widgetsCount = 0;
-		_ID = _widgetsCount;
-		_widgetsCount++;
+		_ID = GenerateId();
 	}
 
 	Widget::~Widget() {}
