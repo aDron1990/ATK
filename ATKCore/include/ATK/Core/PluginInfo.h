@@ -4,7 +4,7 @@
 
 #include "../GUI/Window.h"
 
-typedef ATK::Window* (*initFP)(ATK::Application* app);
+typedef ATK::Window* (__stdcall* initFP)();
 
 namespace ATK
 {

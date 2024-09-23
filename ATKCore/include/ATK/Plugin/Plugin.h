@@ -1,21 +1,20 @@
 #pragma once
 
-#include "../GUI/Window.h"
 #include "../Core/Application.h"
+#include "../GUI/Window.h"
 
 namespace ATK
 {
-
 	class Plugin
 	{
-		Application* app;
-		
-
+		std::vector<Window*> _windows;
+	protected:
+		Application* _app;
 	public:
-
-		void addWindow(Window* window);
-		Plugin(ATK::Application* app);
+		Plugin(Application* app);
 		virtual ~Plugin();
-	};
 
+		void init();
+		void addWindow(Window* window);
+	};
 }

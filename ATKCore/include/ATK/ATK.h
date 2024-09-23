@@ -12,4 +12,4 @@
 
 #define LOAD "LoadPlugins"
 
-typedef void(*LoadPluginsFuncP)(ATK::Application*);
+typedef std::vector<ATK::PluginInfo>(*LoadPluginsFuncP)();

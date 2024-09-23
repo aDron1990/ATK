@@ -3,7 +3,7 @@
 #include "pch.h"
 #include  "ATK/ATK.h"
 
-#define INITPROC "initPlugin"
+#define INITPROC "ADKPluginInitProc"
 
 bool isDll(LPCWSTR name)
 {
@@ -16,7 +16,7 @@ bool isDll(LPCWSTR name)
     return false;
 }
 
-void loadPlugin(LPCWSTR dllName, ATK::Application* app)
+ATK::PluginInfo* loadPlugin(LPCWSTR dllName)
 {
     HMODULE hModule = LoadLibrary(dllName);
     if (hModule)
@@ -24,13 +24,17 @@ void loadPlugin(LPCWSTR dllName, ATK::Application* app)
         if (GetProcAddress(hModule, INITPROC))
         {
             initFP tIFP = (initFP)GetProcAddress(hModule, INITPROC);
-            tIFP(app);
+            ATK::PluginInfo* pI = new ATK::PluginInfo(hModule, tIFP());
+            pI->initialize = tIFP;
+            return pI;
         }
     }
+    return NULL;
 }
 
-void sortDlls(LPCWSTR pluginsDirPath, ATK::Application* app)
+std::vector<ATK::PluginInfo*> sortDlls(LPCWSTR pluginsDirPath)
 {
+    std::vector<ATK::PluginInfo*> result;
     WIN32_FIND_DATA data;  
     HANDLE hFind = FindFirstFile(pluginsDirPath, &data);
     if (hFind != INVALID_HANDLE_VALUE)
@@ -41,18 +45,21 @@ void sortDlls(LPCWSTR pluginsDirPath, ATK::Application* app)
             {
                 std::wostringstream _t;
                 _t << L".\\Plugins\\" << data.cFileName;
-                loadPlugin(_t.str().c_str(), app);
+                result.push_back(loadPlugin(_t.str().c_str()));
             }
         } while (FindNextFile(hFind, &data));
         FindClose(hFind);
     }
+    return result;
 }
 
-void loadPluginsDir(ATK::Application* app)
+std::vector<ATK::PluginInfo*> loadPluginsDir()
 {
+    std::vector<ATK::PluginInfo*> r;
     WCHAR selfPath[256];
     TCHAR Buffer[MAX_PATH];
     DWORD dwRet;
     GetCurrentDirectory(MAX_PATH, Buffer);
-    sortDlls(L".\\Plugins\\*", app);
+    sortDlls(L".\\Plugins\\*");
+    return r;
 }

@@ -2,8 +2,6 @@
 
 #include "../../pch.h"
 
-typedef unsigned(*GetIdProc)();
-
 namespace ATK
 {
 	class Window;
@@ -28,7 +26,6 @@ namespace ATK
 
 	public:
 		
-		static GetIdProc GenerateId;
 //		HWND _hWnd;
 		virtual ~Widget();
 

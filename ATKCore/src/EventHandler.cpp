@@ -72,19 +72,6 @@ namespace ATK
 		case WM_COMMAND:
 			switch (HIWORD(wParam))
 			{
-			case CBN_SELCHANGE:
-				for (int i = 0; i < e->_windows.size(); i++)
-				{
-					for (int j = 0; j < e->_windows[i]->_widgets.size(); j++)
-					{
-						if (LOWORD(wParam) == e->_windows[i]->_widgets[j]->getID())
-						{
-							(dynamic_cast<ComboBox*>(e->_windows[i]->_widgets[j]))->OnSelect();
-						}
-
-					}
-				}
-				break;
 			case EN_CHANGE:
 				for (int i = 0; i < e->_windows.size(); i++)
 				{

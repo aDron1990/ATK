@@ -19,7 +19,6 @@ namespace ATK
 		e->_windows.push_back(this);
 
 		ShowWindow(_hWnd, SW_SHOW);
-		if (_ID) switchState();
 	}
 
 	Window::~Window()
@@ -65,12 +64,6 @@ namespace ATK
 		if (dynamic_cast<Label*>(widget))
 		{
 			widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
-			return;
-		}
-		if (dynamic_cast<ComboBox*>(widget))
-		{
-			widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
-//			SendMessage(widget->_hWnd, (UINT)CB_ADDSTRING, (WPARAM)0, (LPARAM)L"1");
 			return;
 		}
 		widget->_hWnd = CreateWindow(widget->_type, widget->_text, WS_VISIBLE | WS_CHILD | WS_BORDER, widget->_x, widget->_y, widget->_width, widget->_height, getHWnd(), (HMENU)widget->getID(), getInstance(), NULL);
