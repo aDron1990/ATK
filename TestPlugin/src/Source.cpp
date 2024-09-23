@@ -21,7 +21,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserve
 
 
 
-class TestPlugin : public ATK::Plugin
+class TestPlugin : ATK::Plugin
 {
 public:
     TestPlugin(ATK::Application* app) : Plugin(app)
